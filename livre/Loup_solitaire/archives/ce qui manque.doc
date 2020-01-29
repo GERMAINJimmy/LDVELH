@@ -1,0 +1,8 @@
+﻿Barre sur le côté donnant l'habilité et l'endurance du personnage, déduction automatique lors des combats des dommage et des restaurations avec la prise d'un repas, avec bouton combat automatique ou au tour par tour avec bouton de fuite pareil soit automatique soit manuelle
+
+
+Pour les paragraphes de mise à mort ou mort du personnage un bouton apparait pour renvoyer le joueur sur un message lui donnant la possibilité de recommencer l'aventure ou retourner à l'accueil de la série.
+
+Sauvegarde du chemin parcourut pour l'afficher sur la page de mort et le sauvegarder, mais aussi pour le reprendre plus tard cookie? base de données (compte joueur?)?
+
+Php et javascript

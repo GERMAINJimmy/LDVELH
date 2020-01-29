@@ -1,0 +1,47 @@
+/*GENERAL*/
+h1, h2
+{
+    color:saddlebrown;
+    text-align: center;
+}
+h6
+{
+    color:saddlebrown;
+    text-align: center;
+    font-size: 200%;
+}
+p
+{
+    font-size : x-large;
+    color: darkolivegreen;
+    text-align: justify;
+    margin: auto; 
+}
+html
+{
+    background-color:bisque;
+}
+nav
+{
+    text-align:center;
+    width: 50%;
+    margin: auto;
+    zoom:130%;
+}
+ul
+{
+    list-style: none;
+}
+/*SPECIFIQUE*/
+.regles
+{
+    margin: 50px;
+}
+.bouton
+{
+    margin-left: 25%;
+}
+.bouton1
+{
+    margin-left: 35%;
+}

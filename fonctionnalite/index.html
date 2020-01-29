@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <p>
+        <span class="loupSolitaire">loup Solitaire</span>
+        <span class="monstre">GOBELIN</span>
+        <span class="habilite_joueur">30</span>
+        <span class="habilite_monstre">25</span>
+        <span class="endurance_joueur">25</span>
+        <span class="endurance_monstre">1500</span>
+        <span class="or_joueur">15</span>
+        <span class="or_monstre">25</span>
+        <span class="inventaire_joueur">15</span>
+        <span class="inventaire_monstre">25</span>
+        <span class="bonus_joueur">0</span>
+        <span class="bonus_monstre">0</span></p>
+    <p class="pageMort"><a href="pageMort.html"><img src="favicon.ico" /></a></p>
+    
+
+    <div>
+        <label>Combat</label>
+        <button type="button" id="combatAutomatiquecritique" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+            Combat Automatique
+        </button>
+        <button id="combatAutomatique">Combat Automatique</button>
+        <button type="button" data-toggle="modal" data-target="#modal_combat_semi_automatique" data-whatever="">Combat Semi-Automatique</button>
+        <button id="combatManuel">Combat Manuel</button>
+    </div>
+
+    <!-- Modal Combat Automatique-->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Combat Automatique</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="commentaire_fuite"></p>
+                    <p class="commentaire_fin_combat"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="fuite">Fuite</button>
+                    <button type="button" class="combatAutomatiqueCritiqueContinue">Continuer</button>
+                    <button type="button" class="combatAutomatiqueVictoire" data-dismiss="modal" aria-label="Close">Continuer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Combat Semi-Automatique -->
+    <div class="modal fade" id="modal_combat_semi_automatique" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <!-- data-backdrop="static" permet de désactivé la fermeture du modal par click en dehors de celui-ci-->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Combat Semi-Automatique</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="formulaire_modal">
+                        <div class="form-group modalTableDeHasard">
+                            <label for="recipient-name" class="col-form-label ">Entrez la valeur de la Table de Hasard : </label>
+                            <input type="text" class="form-control resultatTableDeHasard" id="recipient-name">
+                            <p class="erreur_Saisie_Table_De_Hasard">Saisissez le numéro de la table de hasard.</p>
+                        </div>
+                        <div class="form-group modalCombat">
+                            <label for="message-text" class="col-form-label">Il vous reste : </label>
+                            <p id="pts_de_vie_restant_joueur_combat_semi_automatique"></p>
+                        </div>
+                        <div class="form-group modalCombat modalCombatCible">
+                            <label for="message-text" class="col-form-label">Il reste au monstre : </label>
+                            <p id="pts_de_vie_restant_cible_combat_semi_automatique"></p>
+                        </div>
+                        <div class="form-group fenetre_Fin_Combat">
+                            <p class="fin_Combat"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="fuite">Fuite</button>
+                    <button type="button" id="envoiResultatTableDeHasard">Combat</button>
+                    <button type="button" class="fenetre_Fin_Combat" data-dismiss="modal" aria-label="Close">Continuer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fin Modal Combat Semi-Automatique -->
+
+    <script src="function.js"></script>
+    <script src="combat.js"></script>
+</body>
+
+</html>

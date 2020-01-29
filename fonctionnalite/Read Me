@@ -1,0 +1,28 @@
+reste à faire
+
+creer les popUp(div HTML) : 
+- pour la fuite et la saisie combat ( vider le champ de saisie de al table des hasard).
+- pour la fuite combat auto (demande a partir de pv <= 10)
+- pour la Mort du personnage
+- victoire ( ajout des objets du monstre et de l'or plus bouton continuer)
+
+creer la base de donnÃ©es
+- table personnage et monstre
+- table page
+- table bouton
+- table image
+- page parcouru
+
+creer les differentes page du site 
+- inscription
+- connexion
+- deconnexion
+- profil
+- boutique
+- mort
+- trame du jeux
+- trame collection
+- trame regle
+- trame livre
+- page de fin de livre 
+- page pour reactualiser ou creer les stat du debut - saisie possible des stats ( si on demare en milieu de serie)

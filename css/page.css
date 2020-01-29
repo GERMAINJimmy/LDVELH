@@ -1,0 +1,52 @@
+/*GENERAL*/
+h1, h2, h3
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 25%;
+    text-align: center;
+    margin: auto;
+}
+body
+{
+    background: url("../images/fond_de_page/loup_solitaire.jpg") fixed no-repeat;
+}
+p
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size : x-large;
+    color: black;
+    text-align: justify;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 10px; 
+}
+li
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    list-style: none;
+    font-size : x-large;
+    color: black;
+    text-align: center;
+    margin-left: 20%;
+    margin-right: 20%; 
+}
+.boutonIntro
+{
+    margin-left: 15%;
+}
+.boutonMort
+{
+    margin-left: 45%;
+}
+.texteMort
+{
+    margin-left: 38%;
+}
+.carte
+{
+    margin-left: 28%;
+}
+.image_livre
+{
+    margin-left: 40%;
+}

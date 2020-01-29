@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Nouvelle page 1</title>
+    <style type="text/css">
+        .titlebar {
+            font-size: 11px;
+            font-family: verdana;
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            background-color: Darkslateblue;
+            padding: 2px;
+            text-align: left;
+        }
+
+        .msgbox {
+            border: outset 2px white;
+            background-color: gainsboro;
+            width: 300px;
+            height: 180px;
+            color: black;
+            padding-left: 1px;
+            padding-right: 2px;
+            padding-top: 1px;
+            font-family: verdana;
+            font-size: 11px;
+            text-align: center
+        }
+
+        .cross {
+            border: outset 2px white;
+            background-color: gainsboro;
+            left: 2px;
+            width: 18px;
+            color: black;
+            font-family: tahoma;
+            float: right;
+            margin-top: 0px;
+            padding-left: 4px;
+            padding-bottom: 2px;
+            padding-top: 1px;
+            top: 0px;
+            line-height: 10px;
+            cursor: default;
+        }
+
+        .bouton {
+            width: 80px;
+            height: 25px;
+            border: oustet 2px silver;
+            position: relative;
+            font-size: 11px;
+            font-family: tahoma;
+        }
+
+        .innerText {
+            width: 100%;
+            padding-left: 30px;
+            text-align: left;
+        }
+
+        #testzone {
+            position: absolute;
+            top: 100px;
+            left: 200px;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+    <input type="button" onclick="document.getElementById('testzone').style.display='block';" value="alert" />
+    <div id='testzone' class="msgbox" style="display:none;">
+        <div class="titlebar">
+            <div class="cross">X</div> Title
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <div class='innerText'>
+            Pour poursuivre veuillez répondre à cette question:
+            Avez vous une toute petite boite ?
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
+            <input type="button" id="trap" value="OUI" class="bouton" onclick="document.getElementById('testzone').style.display='none';" style="left:0px;" />
+
+            <input type="button" id="trap" value="NON" class="bouton" style="left:5px;" />
+        </div>
+
+    </div>
+
+</body>
+
+</html>
