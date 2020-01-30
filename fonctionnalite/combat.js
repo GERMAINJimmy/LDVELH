@@ -1,201 +1,186 @@
 // recuperation des valeurs du personnage
 
-nomJoueur = document.body.querySelector('.loupSolitaire').innerText;
-habiliteJoueur = document.body.querySelector('.habilite_joueur').innerText;
-enduranceJoueur = document.body.querySelector('.endurance_joueur').innerText;
-orJoueur = document.body.querySelector('.or_joueur').innerText;
-inventaireJoueur = document.body.querySelector('.inventaire_joueur').innerText;
-bonusJoueur = document.body.querySelector('.bonus_joueur').innerText;
+nomJoueur = $('.loupSolitaire').text();
+habiliteJoueur = $('.habilite_joueur').text();
+enduranceJoueur = $('.endurance_joueur').text();
+orJoueur = $('.or_joueur').text();
+inventaireJoueur = $('.inventaire_joueur').text();
+bonusJoueur = $('.bonus_joueur').text();
 
 
 // recuperation des valeurs du monstre
 
-nomMonstre = document.body.querySelector('.monstre').innerText;
-habiliteMonstre = document.body.querySelector('.habilite_monstre').innerText;
-enduranceMonstre = document.body.querySelector('.endurance_monstre').innerText;
-orMonstre = document.body.querySelector('.or_monstre').innerText;
-inventaireMonstre = document.body.querySelector('.inventaire_monstre').innerText;
-bonusMonstre = document.body.querySelector('.bonus_monstre').innerText;
+nomMonstre = $('.monstre').text();
+habiliteMonstre = $('.habilite_monstre').text();
+enduranceMonstre = $('.endurance_monstre').text();
+orMonstre = $('.or_monstre').text();
+inventaireMonstre = $('.inventaire_monstre').text();
+bonusMonstre = $('.bonus_monstre').text();
 
 // recuperation de la page Mort
 
-pageMort = document.body.querySelector('.pageMort').innerHTML;
+pageMort = $('.pageMort').html();
 
 // Création des personnages
 
 loupSolitaire = new Personnage(nomJoueur, habiliteJoueur, enduranceJoueur, orJoueur, inventaireJoueur, bonusJoueur);
 monstre = new Personnage(nomMonstre, habiliteMonstre, enduranceMonstre, orMonstre, inventaireMonstre, bonusMonstre);
 
-//récuperation du choix de l'utilisateur pour les combats
 
-// Combat Automatique
+$('#modalCombat').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let recipient = button.data('whatever')
+    let modal = $(this)
 
-combatAutomatique = document.getElementById('combatAutomatique');
-// evenement au click bouton
-combatAutomatique.addEventListener('click', function () {
+    // Combat Automatique
+    if (recipient == 'Combat Automatique') {
+        // mise en place d'un titre de modal
+        modal.find('.modal-title').text(recipient)
 
-    // boucle pour tour de combat
-    while ((loupSolitaire.endurance > 0) && (monstre.endurance > 0)) {
+        while ((loupSolitaire.endurance > 0) && (monstre.endurance > 0)) {
 
-        // utilisation de la table de hasard
-        resultatTableDeHasard = loupSolitaire.tableDeHasard();
+            // utilisation de la table de hasard
+            resultatTableDeHasard = loupSolitaire.tableDeHasard();
 
-        // combat
-        loupSolitaire.assault(monstre);
+            // combat
+            loupSolitaire.assault(monstre);
 
-        // test du popup de vie critique
-        //        loupSolitaire.endurance = 10;
+            // ecriture du reste de pv du joueur
+            $('.endurance_joueur').text(loupSolitaire.endurance);
+            $('.endurance_monstre').text(monstre.endurance);
 
-        // ecriture du reste de pv du joueur
-       console.log(monstre.endurance); document.body.querySelector('.endurance_joueur').innerText = loupSolitaire.endurance;
-        document.body.querySelector('.endurance_monstre').innerText = monstre.endurance;
+            // mort du personnage
+            if (loupSolitaire.endurance <= 0) {
+                $('.modal-body').html(`Vous avez été vaincu  par : <br> ${monstre.nom} <br><br> Rendez-vous à la page : <br> ${pageMort}`);
+                $('.modal-footer').css('display', 'none');
 
-        // mort du personnage
-        if (loupSolitaire.endurance <= 0) {
-            $("#combatAutomatiquecritique").click();
-            $('.modal-body').html('Vous avez été vaincu  par : <br>' + monstre.nom + '<br><br> Rendez-vous à la page : <br>' + pageMort);
-            $('.modal-footer').css('display', 'none');
-            
-console.log("coucou ");
-            //mort du monstre
-        } else if (monstre.endurance <= 0) {
-            $("#combatAutomatiquecritique").click();
-            document.body.querySelector('.modal-body').innerText = 'vous avez vaincu : ' + monstre.nom;
-            $('.fuite').css('display', 'none');
-            $('.combatAutomatiqueCritiqueContinue').css('display', 'none');
-           console.log("coucou je vais bien ");
+                //mort du monstre
+            } else if (monstre.endurance <= 0) {
+                $('.modal-body').html(`vous avez vaincu : ${monstre.nom}`);
+                $('.continuerCA').css('display', 'none');
+                $('.continuerCSA').css('display', 'none');
+                $('.continuerCM').css('display', 'none');
+                $('.fuite').text('Continuer');
+                // mise en place du modal pour proposer une fuite au joueur
+            } else if (loupSolitaire.endurance <= 10 && loupSolitaire.endurance >= 1 && monstre.endurance > 0) {
+                $('.modal-body').text(`Il vous reste ${loupSolitaire.endurance} points de vie. Voulez vous tenter une fuite ? Sinon continuer le combat, et essayer de survivre.`);
+                $('.continuerCSA').css('display', 'none');
+                $('.continuerCM').css('display', 'none');
+                break;
+            }
+        }
+    }
+    // si click pour continuer le combat
+    $('.continuerCA').click(function () {
+
+        // boucle pour tour de combat
+        while ((loupSolitaire.endurance > 0) && (monstre.endurance > 0)) {
+
+            // utilisation de la table de hasard
+            resultatTableDeHasard = loupSolitaire.tableDeHasard();
+
+            // combat
+            loupSolitaire.assault(monstre);
+
+            // ecriture du reste de pv du joueur
+            $('.endurance_joueur').text(loupSolitaire.endurance);
+            $('.endurance_monstre').text(monstre.endurance);
+
             // mise en place du modal pour proposer une fuite au joueur
-        } else if (loupSolitaire.endurance <= 20 && loupSolitaire.endurance >= 1 && monstre.endurance > 0) {
-            $("#combatAutomatiquecritique").click();
-            document.body.querySelector('.modal-body').innerText = 'Il vous reste ' + loupSolitaire.endurance + ' points de vie. Voulez vous tenter une fuite ? Sinon continuer le combat, et essayer de suivre.';
-            $('.combatAutomatiqueVictoire').css('display', 'none');
-            break;
-            
-        }
-    }
-});
+            if (loupSolitaire.endurance <= 0) {
+                $('.modal-body').html(`Vous avez été vaincu  par : <br> ${monstre.nom} <br><br> Rendez-vous à la page : <br> ${pageMort}`);
+                $('.modal-footer').css('display', 'none');
 
-$('.combatAutomatiqueCritiqueContinue').click(function () {
-
-    // boucle pour tour de combat
-    while ((loupSolitaire.endurance > 0) && (monstre.endurance > 0)) {
-
-        // utilisation de la table de hasard
-        resultatTableDeHasard = loupSolitaire.tableDeHasard();
-
-        // combat
-        loupSolitaire.assault(monstre);
-
-        // ecriture du reste de pv du joueur
-        document.body.querySelector('.endurance_joueur').innerText = loupSolitaire.endurance;
-        document.body.querySelector('.endurance_monstre').innerText = monstre.endurance;
-
-        // mise en place du modal pour proposer une fuite au joueur
-        if (loupSolitaire.endurance <= 0) {
-            $('.modal-body').html('Vous avez été vaincu  par : <br>' + monstre.nom + '<br><br> Rendez-vous à la page : <br>' + pageMort);
-            $('.modal-footer').css('display', 'none');
-
-            //mort du monstre
-        } else if (monstre.endurance <= 0) {
-            document.body.querySelector('.modal-body').innerText = 'vous avez vaincu : ' + monstre.nom;
-            $('.fuite').css('display', 'none');
-            $('.combatAutomatiqueCritiqueContinue').css('display', 'none');
-            $('.combatAutomatiqueVictoire').css('display', 'block');
-        }
-    }
-});
-
-
-// Combat Semi-Automatique
-$('#modal_combat_semi_automatique').on('shown.bs.modal', function (event) {
-    $('.resultatTableDeHasard').focus();
-    combatSemiAutomatique = document.getElementById('envoiResultatTableDeHasard');
-    // evenement au click bouton
-    combatSemiAutomatique.addEventListener('click', function () {
-        // recuperation de la saisie de la table des hasard par le joueur
-        resultatTableDeHasard = $('.resultatTableDeHasard').val();
-        // limite de saisie pour la table des hasard
-        if (resultatTableDeHasard < 0 || resultatTableDeHasard > 9 || isNaN(resultatTableDeHasard)|| resultatTableDeHasard == '') {
-            $('.erreur_Saisie_Table_De_Hasard').show();
-            $('.resultatTableDeHasard').val('');
-            $('.resultatTableDeHasard').focus();
-        } else {
-            $('.erreur_Saisie_Table_De_Hasard').hide();
-            $('.resultatTableDeHasard').focus();
-        }
-
-        // si les champs d'afichage des PV restant pour le joueur et sa cible sont vide
-        if (pv_restant_loup_solitaire == '' || pv_restant_cible == '') {
-            // combat
-            loupSolitaire.assault(monstre);
-            // afichage des PV restant pour le joueur et sa cible 
-            $('.modalCombat').css('display', 'block');
-            $('.endurance_joueur').innerText = loupSolitaire.endurance;
-            $('.endurance_monstre').innerText = monstre.endurance;
-            $('#pts_de_vie_restant_joueur_combat_semi_automatique').append(loupSolitaire.endurance + ' Points d\'endurance');
-            $('#pts_de_vie_restant_cible_combat_semi_automatique').append(monstre.endurance + ' Points d\'endurance');
-            // modification du nombre de PV du joueur
-            document.body.querySelector('.endurance_joueur').innerText = loupSolitaire.endurance;
-            // vidage champ de saisie de la table des hasard
-            $('.resultatTableDeHasard').val('');
-            // si les champs d'afichage des PV restant pour le joueur et sa cible ne sont pas vide
-
-        } else if (pv_restant_loup_solitaire !== '' || pv_restant_cible !== '') {
-            // combat
-            loupSolitaire.assault(monstre);
-            // afichage des PV restant pour le joueur et sa cible 
-            $('.modalCombat').css('display', 'block'); // afichage des PV restant pour le joueur et sa cible 
-            $('#pts_de_vie_restant_joueur_combat_semi_automatique').text(loupSolitaire.endurance + ' Points d\'endurance');
-            $('#pts_de_vie_restant_cible_combat_semi_automatique').text(monstre.endurance + ' Points d\'endurance');
-            // modification du nombre de PV du joueur
-            document.body.querySelector('.endurance_joueur').innerText = loupSolitaire.endurance;
-            // vidage champ de saisie de la table des hasard
-            $('.resultatTableDeHasard').val('');
-
-        }
-
-        // action si le joueur meurt
-        if (loupSolitaire.endurance <= 0) {
-            $('#envoiResultatTableDeHasard').css('display', 'none');
-            $('.modalCombatCible').css('display', 'none');
-            $('.modalCombat').css('display', 'none');
-            $('.modalTableDeHasard').css('display', 'none');
-            $('.fuite').css('display', 'none');
-            $('.fenetre_Fin_Combat').css('display', 'block');
-            $('.fin_Combat').append('Vous avez été vaincu  par : <br>' + monstre.nom + '<br><br> Rendez-vous à la page : <br>' + pageMort);
-
-            // action si le monstre meurt    
-        } else if (monstre.endurance <= 0) {
-            $('#envoiResultatTableDeHasard').css('display', 'none');
-            $('.modalCombatCible').css('display', 'none');
-            $('.modalCombat').css('display', 'none');
-            $('.modalTableDeHasard').css('display', 'none');
-            $('.fuite').css('display', 'none');
-            $('.fenetre_Fin_Combat').css('display', 'block');
-            $('.fin_Combat').append('vous avez vaincu : ' + monstre.nom);
+                //mort du monstre
+            } else if (monstre.endurance <= 0) {
+                $('.modal-body').html(`vous avez vaincu : ${monstre.nom}`);
+                $('.continuerCA').css('display', 'none');
+                $('.continuerCSA').css('display', 'none');
+                $('.continuerCM').css('display', 'none');
+                $('.fuite').text('Continuer');
+            }
         }
     });
-})
+    // si click pour fuire le combat
+    $('.fuite').click(function () {});
 
+    // Combat Semi-Automatique
+    if (recipient == 'Combat Semi-Automatique') {
+        // mise en place d'un titre de modal
+        modal.find('.modal-title').text(recipient);
+        modal.find('.modal-body label').text('Entrez la valeur de la Table de Hasard :');
+        $('.continuerCA').css('display', 'none');
+        $('.continuerCM').css('display', 'none');
 
-// Combat Manuel   
-    
-combatManuel = document.getElementById('combatManuel');
-// evenement au click bouton
-combatManuel.addEventListener('click', function () {
+        // evenement au click bouton
+        $('.continuerCSA').click(function () {
+            // recuperation de la saisie de la table des hasard par le joueur
+            resultatTableDeHasard = $('input').val();
+            // limite de saisie pour la table des hasard
+            if (resultatTableDeHasard < 0 || resultatTableDeHasard > 9 || isNaN(resultatTableDeHasard) || resultatTableDeHasard == '') {
+                $('#message_erreur').text('Saisissez le numéro de la table de hasard.');
+                $('#recipient-name').val('');
+                $('#recipient-name').focus();
+            } else {
+                $('#message_erreur').hide();
+                $('#recipient-name').focus();
+            }
 
-    // champs de saisie du nombre de pv restant au joueur
-    loupSolitaire.endurance = prompt('Saisissez le nombre de point de vie qu\'il vous reste');
+            // combat
+            loupSolitaire.assault(monstre);
+            // afichage des PV restant pour le joueur et sa cible 
+            $('.message p').html(`Il reste au ${loupSolitaire.nom} : <br> ${loupSolitaire.endurance} points d\'endurance <br><br>`);
+            $('.message p').append(`Il reste au ${monstre.nom} : <br> ${monstre.endurance} points d\'endurance <br><br>`);
 
-    // modification du nombre de pv restant au joueur
-    document.body.querySelector('.endurance_joueur').innerText = loupSolitaire.endurance;
+            // modification du nombre de PV du joueur et du monstre
+            $('.endurance_joueur').text(loupSolitaire.endurance);
+            $('.endurance_monstre').text(monstre.endurance);
 
-    // action si le joueur meurt
-    if (loupSolitaire.endurance.val <= 0) {
-    
-    
-    
+            // vidage champ de saisie de la table des hasard
+            $('#recipient-name').val('');
+
+            // action si le joueur meurt
+            if (loupSolitaire.endurance <= 0) {
+                $('.recipient').css('display', 'none');
+                $('.modal-footer').css('display', 'none');
+                $('.modal-body').html(`Vous avez été vaincu  par : <br> ${monstre.nom} <br><br> Rendez-vous à la page : <br> ${pageMort}`);
+
+                // action si le monstre meurt    
+            } else if (monstre.endurance <= 0) {
+                $('.modal-body').html(`vous avez vaincu : ${monstre.nom}`);
+                $('.continuerCSA').css('display', 'none');
+                $('.fuite').text('Continuer');
+            }
+        });
     }
-});
 
-// Fuite  (remplissage de la fonction a chaque page )
+    // Combat Manuel
+    if (recipient == 'Combat Manuel') {
+        // mise en place d'un titre de modal
+        modal.find('.modal-title').text(recipient);
+        // mise en place de la zone de saisie
+        modal.find('.modal-body label').text('Entrez le nombre de points d\'endurance qu\'il vous reste :');
+        $('.continuerCA').css('display', 'none');
+        $('.continuerCSA').css('display', 'none');
+        $('.fuite').css('display', 'none');
+        $('.continuerCM').click(function () {
+            loupSolitaire.endurance = $('input').val();
+            
+            
+            if (loupSolitaire.endurance < 0 || isNaN(loupSolitaire.endurance) || loupSolitaire.endurance == '') {
+                $('#message_erreur').text('Saisissez un numéro supérieur ou égale à 0.');
+                $('#recipient-name').val('');
+                $('#recipient-name').focus();
+            } else if (loupSolitaire.endurance == 0){
+                $('.recipient').css('display', 'none');
+                $('.modal-footer').css('display', 'none');
+                $('.message p').html(`Vous avez été vaincu  par : <br>${monstre.nom}<br><br> Rendez-vous à la page : <br> ${pageMort}`);                
+            }else {
+                $('#message_erreur').hide();
+                $('.endurance_joueur').text(loupSolitaire.endurance);
+                $('.fuite').click();
+            }
+            
+        })        
+    }
+})

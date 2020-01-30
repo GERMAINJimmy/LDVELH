@@ -1,4 +1,4 @@
-let nomJoueur, nomMonstre, habiliteJoueur, habiliteMonstre, enduranceJoueur, enduranceMonstre, orJoueur, orMonstre, inventaireJoueur, inventaireMonstre, bonusJoueur, bonusMonstre, quotientAttaque, tableauCombat, resultatassault, resultatassaultJoueur, resultatassaultMonstre, resultatTableDeHasard, pageMort, combatAutomatique, combatSemiAutomatique, combatManuel, pv_restant_loup_solitaire, pv_restant_cible, fin_Combat, fenetre_Fin_Combat, texteModalCombat, envoiResultatTableDeHasard, modalCombatCible, modalCombatJoueur, modalTableDeHasard, erreur_Saisie_Table_De_Hasard, combatAutomatiqueCritiqueContinue, fuite;
+let nomJoueur, nomMonstre, habiliteJoueur, habiliteMonstre, enduranceJoueur, enduranceMonstre, orJoueur, orMonstre, inventaireJoueur, inventaireMonstre, bonusJoueur, bonusMonstre, quotientAttaque, tableauCombat, resultatassaultJoueur, resultatassaultMonstre, resultatTableDeHasard, pageMort;
 
 // création de la classe Personnage pour le joueur et les monstres
 class Personnage {
