@@ -1,0 +1,18 @@
+html, body {
+    font-family: 'Lucida Calligraphy', serif;
+    background-image: url("../../images/fond_de_page/parchment-alpha75.jpg") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    height: 100% !important;
+}
+
+.collection img {
+    width: 150px;
+}
+
+.button-perso {
+    background-color: #A46321;
+    color: yellow;
+    border: black solid 3px;
+    border-radius: 50px;
+}
